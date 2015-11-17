@@ -1,34 +1,130 @@
-Anax-MVC
-=========
+Pot-belly-pig (Allt om hängbukssvin)
+====================================
 
-[![Latest Stable Version](https://poser.pugx.org/leaphly/cart-bundle/version.png)](https://packagist.org/packages/anax/mvc)
-[![Build Status](https://travis-ci.org/mosbth/Anax-MVC.png?branch=master)](https://travis-ci.org/mosbth/Anax-MVC)
-[![Code Coverage](https://scrutinizer-ci.com/g/mosbth/Anax-MVC/badges/coverage.png?s=f999ab1961684a91050b095682f7ab7a13ccb534)](https://scrutinizer-ci.com/g/mosbth/Anax-MVC/)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/mosbth/Anax-MVC/badges/quality-score.png?s=1c2fc1af0df7fb7ee1e4f379a81253583a750297)](https://scrutinizer-ci.com/g/mosbth/Anax-MVC/)
+A site built for Questions and Answers, question functionalities are protected by login and the site stores information in mysql database.
+Written in PHP and based on Anax-MVC, a MVC-inspired framework for websites.
 
-A PHP-based and MVC-inspired (micro) framework / webbtemplate / boilerplate for websites and webbapplications.
+About the website
+-----------------------------------
+This website was created as a student project. On the website you can:
 
-Read article about it here: ["Anax som MVC-ramverk"](http://dbwebb.se/kunskap/anax-som-mvc-ramverk) and here ["Bygg en me-sida med Anax-MVC"](http://dbwebb.se/kunskap/bygg-en-me-sida-med-anax-mvc).
+* Signup to become a member
+* Ask questions (Members only)
+* Answer questions (Members only)
+* Comment answers and questions (Members only)
+* Read questions, answers and comments (Everyone)
+* See user profiles (Everyone)
+* Vote on questions, answers and comments (Members only)
+* Mark answers as accepted answers (Members only)
+* Edit your profile (Members only)
+* Accumulate reputation ponts by being an active member (Members only)
+* Tag questions as beloning to certain categories (Members only)
 
-Builds upon Anax-base, read article about Anax-base ["Anax - en hållbar struktur för dina webbapplikationer"](http://dbwebb.se/kunskap/anax-en-hallbar-struktur-for-dina-webbapplikationer) to get an overview of its none-MVC variant.
-
-By Mikael Roos, me@mikaelroos.se.
-
+The website's topic is pot-belly pigs and all site content is written in Swedish (code and code comments are in English).
+Of course, the topic can be changed to something else entirely if you choose to do some changes to the code, such as changing the site title, images and tags.
 
 
-License
+How to install
 ------------------
+**Step 1**
+Clone this repository to your computer.
 
-This software is free software and carries a MIT license.
+**Step 2**
+####Install CForm and CDatabase
+If not already installed, install CForm and CDatabase with Composer and Packagist by adding them to
+your `composer.json`.
+
+```
+"require": {
+    "php": ">=5.4",
+    "mos/cform": "2.*@dev",
+    "mos/cdatabase": "dev-master"
+},
+```
+**Step 3**
+When the packages have been installed, open up `vendor/mos/cform/src/HTMLForm/CForm.php` and add the following
+method to the CForm-class:
+
+```
+/**
+ * Get values of a form element array
+ *
+ * @param string $element the name of the formelement.
+ *
+ * @return mixed the value of the element.
+ */
+public function values($element)
+{
+    return $this[$element]['checked'];
+}
+```
+**Step 4**
+####Database setup
+*The website need the database to be setup correctly to work as intended.*
+
+In `webroot/` you will find `sql_tables.sql` with all the tables and views you need.
+Import the sql-file into your mysql database of choice. By default all tables and views you import will have the
+prefix `project_`, you can may change this prefix if you prefer another one, but they must all have the same prefix. However,
+do not change the names of the tables as the classes that communicates with the database will look for tables that have the same names
+as the classes (after the prefix), e.g. a class named `Question` will look for a database table named `project_question` if the prefix is `project_`.
+
+**Step 5**
+####Database configuration
+In `app/config` you will find two config-files for mySQL (`config_mysql.php` and `config_mysql_local.php`). You can
+use the latter one for your local environment and the former for live environment. In these files, whichever you chose to use,
+you need to change the constants `DB_USER` and `DB_PASSWORD` to your mySQL username and password. You also need to set `dsn` to your
+host and databasename so that you can access your mySQL database. If you changed the prefix to the tables and views, you will also need to change
+`table_prefix` to the prefix you chose.
+
+**Step 6**
+In `webroot/index.php` you will set which of these configuration files you chose to use:
+```
+$di->setShared('db', function() {
+    $db = new \Mos\Database\CDatabaseBasic();
+    $db->setOptions(require ANAX_APP_PATH . 'config/config_mysql.php'); //online
+    //$db->setOptions(require ANAX_APP_PATH . 'config/config_mysql_local.php'); //offline
+    $db->connect();
+    return $db;
+});
+```
+
+**Step 6**
+####CSS/Less configuration
+Set the permissions on the directory `anax-grid` in `webroot/css` to 777. When you access the website in your browser,
+two files will be created `style.css` and `style.less.cache`. You might have to refresh the page twice to see the changes. If you're experiencing
+troubles with this, try to remove `style.css` and `style.less.cache` and refresh the page to create then again.
 
 
+Good To Know
+-----------------------------------
+
+In `webroot/.htaccess` you can use Rewrite to rewrite the url base, just un-comment the code and change the base url.
+
+The tables imported will be empty, except for `project_tags` which will have all the tags used on the website.
+You can change these if you like, but if you remove or change the tag called `Övrigt` you will also need to change
+`src/HTMLForm/CFormAddQuestion.php` since this tag is chosen per default if no tag has been chosen for a new question:
+
+```
+//Set Övrigt as default tag if none has been chosen
+$tagCategories = !empty($this->Values('tags')) ? $this->Values('tags') : array('Övrigt');
+```
 
 Use of external libraries
 -----------------------------------
 
 The following external modules are included and subject to its own license.
 
+### Lessphp
+* Website: http://leafo.net/lessphp/
+* Version: 0.4.0
+* License: MIT License
+* Path inluded in `webroot/css/anax-grid/lessphp`
 
+### Semantic Grid
+* Website: http://tylertate.github.io/semantic.gs/
+* Version: Version 2.0, January 2004
+* License: Apache 2.0
+* Path inluded in `webroot/css/anax-grid/semantic.gs`
 
 ### Modernizr
 * Website: http://modernizr.com/
@@ -36,126 +132,8 @@ The following external modules are included and subject to its own license.
 * License: MIT license
 * Path: included in `webroot/js/modernizr.js`
 
-
-
 ### PHP Markdown
 * Website: http://michelf.ca/projects/php-markdown/
 * Version: 1.4.0, November 29, 2013
 * License: PHP Markdown Lib Copyright © 2004-2013 Michel Fortin http://michelf.ca/
 * Path: included in `3pp/php-markdown`
-
-
-
-
-History
------------------------------------
-
-
-###History for Anax-MVC
-
-v2.0.x (latest)
-
-* Enhancing verbosity on exceptino messages by printing out $di
-* Display valid routes and controllers to aid in 404 debugging.
-
-
-v2.0.4 (2015-04-05)
-
-* Navbar to display current item even if ? is present, fix 15.
-* Updated composer.json and removed dependency to coverall.io.
-* updated .travis.yml to remove dependency to coverall.io and do not install composer.phar.
-* Adding example for shortcodes [BASEURL], [RELURL] and [ASSET].
-* Adding example code on using forward and view creation, fix #13.
-* `CDispatcherBasic->foward()` now returns a value, fix #12.
-* Throw exception when headers already sent, fix #11.
-* Removed testcase where exception was not thrown in creating session on hvm.
-
-
-
-v2.0.3 (2015-01-12)
-
-* Adding autoloader to composer.json to enable download from packagist using composer and require.
-* Add PHP 5.6 as testenvironment in Travis.
-* Testcases for \Anax\Session\CSession.
-* Testcases for \Anax\DI\CDI.
-* Improved exception when creation of service failes in $di.
-* CNavbar now works for descendants of a menuitem.
-* Correcting example `webroot/test/navigation-bar.php` to correctly show current menu item.
-* Improved error messages in `CDispatcherbasic`.
-* Improved errorhandling in trait `TInjectable`, now throwing more verbose exceptions on which class is using the trait.
-
-
-
-v2.0.2 (2014-10-25)
-
-* Added example for navigation bar and how to create urls in navbar.
-* Add default route handler for route defined as '*'.
-* Added empryt directory for app-specific file content `app/content`.
-* Minor fixes to error messages.
-* Several minor fixes to code formatting.
-* Added `CUrl::createRelative()` for urls relative current frontcontroller.
-* Reorganized and added testprograms in `webroot/test`.
-* Improved documentation in `docs/documentation` and `webroot/docs.php`.
-* Added config-file for phpunit `phpunit.xml.dist`.
-* Added `phpdoc.dist.xml`.
-* Enhanced `Anax\Navigation\CNavBar` with class in menu item.
-* Added phpdocs to `docs/api`.
-
-
-v2.0.1 (2014-10-17)
-
-* Updates to match comments example.
-* Introduced and corrected bug (issue #1) where exception was thrown instead of presenting a 404-page.
-* Added `CSession::has()`.
-* Corrected bug #2 in `CSession->name` which did not use the config-file for naming the session.
-* Added `Anax\MVC\CDispatcherBasic` calling `initialize` om each controller.
-* Added exception handling to provide views for 403, 404 and 500 http status codes and added example program in `webroot/error.php`.
-* Added `docs` to init online documentation.
-* Adding flash message (not storing in session).
-* Adding testcases for CDispatcherBasic and now throwing exceptions from `dispatch()` as #3.
-* Adding example for integrating CForm in Anax MVC and as a result some improvements to several places.
-* Adding check to `Anax\MVC\CDispatcherBasic` to really check if the methods are part of the controller class and not using `__call()`.
-* Improved error handling in `Anax\MVC\CDispatcherBasic` and testcase in `webroot/test_errormessages.php`.
-
-
-v2.0.0 (2014-03-26)
-
-* Cloned Anax-MVC and preparing to build Anax-MVC.
-* Added autoloader for PSR-0.
-* Not throwing exception in standard anax autoloader.
-* Using anonomous functions in `bootstrap.php` to set up exception handler and autoloader.
-* Added `$anax['style']` as inline style in `config.php` and `index.tpl.php`.
-* Added unit testing with phpunit.
-* Added automatic build with travis.
-* Added codecoverage reports on coveralls.io.
-* Added code quality through scrutinizer-ci.com.
-* Major additions of classes to support a framework using dependency injections and service container.
-
-
-###History for Anax-base
-
-v1.0.3 (2013-11-22)
-
-* Naming of session in `webroot/config.php` allows only alphanumeric characters.
-
-
-v1.0.2 (2013-09-23)
-
-* Needs to define the ANAX_INSTALL path before using it. v1.0.1 did not work.
-
-
-v1.0.1 (2013-09-19)
-
-* `config.php`, including `bootstrap.php` before starting session, needs the autoloader()`.
-
-
-v1.0.0 (2013-06-28)
-
-* First release after initial article on Anax.
-
-
-
-```
- .  
-..:  Copyright (c) 2013 - 2014 Mikael Roos, me@mikaelroos.se
-```

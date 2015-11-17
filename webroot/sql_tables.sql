@@ -209,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `project_vtags` (
 --
 DROP TABLE IF EXISTS `project_vactivity`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `project_vactivity` AS select `u`.`id` AS `id`,`u`.`acronym` AS `acronym`,`u`.`activityScore` AS `activityScore`,(select count(0) from `project_uservoting` where (`project_uservoting`.`idUser` = `u`.`id`)) AS `votes`,(select count(0) from `project_question` where (`project_question`.`userId` = `u`.`id`)) AS `questions`,(select count(0) from `project_answers` where (`project_answers`.`userId` = `u`.`id`)) AS `answers`,(select count(0) from `project_comments` where (`project_comments`.`userId` = `u`.`id`)) AS `comments`,(select sum(`project_question`.`score`) from `project_question` where (`project_question`.`userId` = `u`.`id`)) AS `questionScore`,(select sum(`project_answers`.`score`) from `project_answers` where (`project_answers`.`userId` = `u`.`id`)) AS `answerScore`,(select sum(`project_comments`.`score`) from `project_comments` where (`project_comments`.`userId` = `u`.`id`)) AS `commentScore` from `project_user` `u` group by `u`.`id`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `project_vactivity` AS select `u`.`id` AS `id`,`u`.`acronym` AS `acronym`,`u`.`activityScore` AS `activityScore`,(select count(0) from `project_uservoting` where (`project_uservoting`.`idUser` = `u`.`id`)) AS `votes`,(select count(0) from `project_question` where (`project_question`.`userId` = `u`.`id`)) AS `questions`,(select count(0) from `project_answers` where (`project_answers`.`userId` = `u`.`id`)) AS `answers`,(select count(0) from `project_comments` where (`project_comments`.`userId` = `u`.`id`)) AS `comments`,(select sum(`project_question`.`score`) from `project_question` where (`project_question`.`userId` = `u`.`id`)) AS `questionScore`,(select sum(`project_answers`.`score`) from `project_answers` where (`project_answers`.`userId` = `u`.`id`)) AS `answerScore`,(select sum(`project_comments`.`score`) from `project_comments` where (`project_comments`.`userId` = `u`.`id`)) AS `commentScore` from `project_user` `u` group by `u`.`id`;
 
 -- --------------------------------------------------------
 
@@ -218,7 +218,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `project_vquestions`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `project_vquestions` AS select `q`.`id` AS `id`,`q`.`title` AS `title`,`q`.`content` AS `content`,`q`.`author` AS `author`,`q`.`timestamp` AS `timestamp`,group_concat(`t`.`tag` separator ',') AS `tag`,group_concat(`t`.`id` separator ',') AS `tagId`,`u`.`gravatar` AS `gravatar`,`u`.`id` AS `userId`,`q`.`score` AS `qScore` from (((`project_question` `q` left join `project_question2tags` `q2t` on((`q`.`id` = `q2t`.`idQuestion`))) left join `project_tags` `t` on((`q2t`.`idTag` = `t`.`id`))) left join `project_user` `u` on((`u`.`acronym` = `q`.`author`))) group by `q`.`id`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `project_vquestions` AS select `q`.`id` AS `id`,`q`.`title` AS `title`,`q`.`content` AS `content`,`q`.`author` AS `author`,`q`.`timestamp` AS `timestamp`,group_concat(`t`.`tag` separator ',') AS `tag`,group_concat(`t`.`id` separator ',') AS `tagId`,`u`.`gravatar` AS `gravatar`,`u`.`id` AS `userId`,`q`.`score` AS `qScore` from (((`project_question` `q` left join `project_question2tags` `q2t` on((`q`.`id` = `q2t`.`idQuestion`))) left join `project_tags` `t` on((`q2t`.`idTag` = `t`.`id`))) left join `project_user` `u` on((`u`.`acronym` = `q`.`author`))) group by `q`.`id`;
 
 -- --------------------------------------------------------
 
@@ -227,7 +227,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `project_vtags`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `project_vtags` AS select `t`.`id` AS `id`,`t`.`tag` AS `tag`,`t`.`description` AS `description`,(select count(0) from `project_question2tags` where (`project_question2tags`.`idTag` = `t`.`id`)) AS `nrQuestions` from `project_tags` `t` group by `t`.`id`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `project_vtags` AS select `t`.`id` AS `id`,`t`.`tag` AS `tag`,`t`.`description` AS `description`,(select count(0) from `project_question2tags` where (`project_question2tags`.`idTag` = `t`.`id`)) AS `nrQuestions` from `project_tags` `t` group by `t`.`id`;
 
 --
 -- Index för dumpade tabeller
