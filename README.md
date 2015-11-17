@@ -2,7 +2,7 @@ Pot-belly-pig (Allt om hängbukssvin)
 ====================================
 
 A site built for Questions and Answers, question functionalities are protected by login and the site stores information in mysql database.
-Written in PHP and based on Anax-MVC, a MVC-inspired framework for websites.
+Written in PHP and based on Anax-MVC (https://github.com/mosbth/Anax-MVC), a MVC-inspired framework for websites.
 
 About the website
 -----------------------------------
@@ -122,7 +122,7 @@ The following external modules are included and subject to its own license.
 
 ### Semantic Grid
 * Website: http://tylertate.github.io/semantic.gs/
-* Version: Version 2.0, January 2004
+* Version: 1.2
 * License: Apache 2.0
 * Path inluded in `webroot/css/anax-grid/semantic.gs`
 
