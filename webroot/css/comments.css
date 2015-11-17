@@ -1,0 +1,114 @@
+/**
+* Styling for comments
+*/
+
+.comments, .comment-form {
+    width: 75%;
+}
+
+/*
+Comment title
+*/
+.commentNr {
+    background-color: #EEEEEE;
+    padding: 0.6em;
+    border-radius: 12px 12px 12px 12px;
+    -moz-border-radius: 12px 12px 12px 12px;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    border: 0px solid #000000;
+    -webkit-box-shadow: inset -3px 9px 10px -7px rgba(219,219,219,1);
+-moz-box-shadow: inset -3px 9px 10px -7px rgba(219,219,219,1);
+box-shadow: inset -3px 9px 10px -7px rgba(219,219,219,1);
+}
+
+/*
+Content in comment
+*/
+.comment {
+    padding: 1em;
+    overflow: auto;
+}
+
+
+.commentBox {
+    overflow: auto;
+}
+
+.comment .left {
+    float: left;
+}
+
+.comment .right {
+    float: right;
+}
+
+.commentLinks {
+    margin-top: 3em;
+}
+
+/*
+Box with info about author
+*/
+.commentOrigin {
+    background-color: #EBEBE0;
+    float: right;
+    padding: 0.4em;
+    width: 210px;
+
+}
+
+.commentOrigin img {
+    width: 50px;
+    display: inline;
+    float:left;
+    padding-right: 0.5em;
+}
+
+.commentOrigin p {
+    display: inline;
+}
+
+
+
+
+.commentName {
+    color: #74BFE6;
+    font-weight: bold;
+
+}
+
+.commentContent {
+    width: 500px;
+    height: 100px;
+}
+
+/*
+Buttons
+*/
+.commentButtons {
+    background: #2a918c;
+  background-image: -webkit-linear-gradient(top, #2a918c, #1e706c);
+  background-image: -moz-linear-gradient(top, #2a918c, #1e706c);
+  background-image: -ms-linear-gradient(top, #2a918c, #1e706c);
+  background-image: -o-linear-gradient(top, #2a918c, #1e706c);
+  background-image: linear-gradient(to bottom, #2a918c, #1e706c);
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 7px 15px 7px 15px;
+  text-decoration: none;
+}
+
+.commentButtons:hover {
+    background: #2a918c;
+  background-image: -webkit-linear-gradient(top, #2a918c, #2e9e98);
+  background-image: -moz-linear-gradient(top, #2a918c, #2e9e98);
+  background-image: -ms-linear-gradient(top, #2a918c, #2e9e98);
+  background-image: -o-linear-gradient(top, #2a918c, #2e9e98);
+  background-image: linear-gradient(to bottom, #2a918c, #2e9e98);
+  text-decoration: none;
+  cursor: pointer;
+}

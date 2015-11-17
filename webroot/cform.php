@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This is a Anax frontcontroller.
  *
@@ -7,10 +7,10 @@
 // Get environment & autoloader.
 require __DIR__.'/config.php';
 
-// Create services and inject into the app. 
-$di  = new \Anax\DI\CDIFactoryDefault();
+// Create services and inject into the app.
+$di  = new \Anax\DI\CDIFactory();
 
-$di->set('form', '\Mos\HTMLForm\CForm');
+//$di->set('form', '\Mos\HTMLForm\CForm');
 
 $di->set('FormController', function () use ($di) {
     $controller = new \Anax\HTMLForm\FormController();
@@ -25,6 +25,7 @@ $di->set('FormSmallController', function () use ($di) {
 });
 
 $app = new \Anax\MVC\CApplicationBasic($di);
+//$app = new \Anax\Kernel\CAnax($di);
 
 // Home route
 $app->router->add('', function () use ($app) {
@@ -107,7 +108,7 @@ $app->router->add('test1', function () use ($app) {
         $app->redirectTo();
 
     } else if ($status === false) {
-    
+
         // What to do when form could not be processed?
         $form->AddOutput("<p><i>Form was submitted and the Check() method returned false.</i></p>");
         //header("Location: " . $_SERVER['PHP_SELF']);
@@ -120,18 +121,18 @@ $app->router->add('test1', function () use ($app) {
     // Check the status of the form
     $form->check(
         function ($form) use ($app) {
-        
+
             // What to do if the form was submitted?
             $form->AddOUtput("<p><i>Form was submitted and the callback method returned true.</i></p>");
             $app->redirectTo();
 
         },
         function ($form) use ($app) {
-    
+
             // What to do when form could not be processed?
             $form->AddOutput("<p><i>Form was submitted and the Check() method returned false.</i></p>");
             $app->redirectTo();
-    
+
         }
     );
 */

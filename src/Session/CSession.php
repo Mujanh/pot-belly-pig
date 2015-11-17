@@ -83,6 +83,17 @@ class CSession
         $_SESSION[$key] = $value;
     }
 
+    /**
+     * Unset values in session.
+     *
+     * @param string $key   in session variable.
+     *
+     * @return void
+     */
+    public function remove($key)
+    {
+        unset($_SESSION[$key]);
+    }
 
 
     /**

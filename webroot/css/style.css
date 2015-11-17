@@ -3,6 +3,9 @@
  */
 
 @import url(figure.css);
+@import url(users.css);
+@import url(comments.css);
+
 
 body {
   color: #333;
@@ -16,11 +19,11 @@ h1 {
 
 
 /**
- * Layout of the main page elements 
+ * Layout of the main page elements
  */
 #wrapper {
   margin: 0 auto;
-  width: 980px; 
+  width: 980px;
   padding: 10px;
 }
 
@@ -48,14 +51,12 @@ h1 {
   color: #666;
 }
 
-
 /**
  * Layout for main
  */
 #main {
   min-height: 20em;
 }
-
 
 /**
  * Layout for footer

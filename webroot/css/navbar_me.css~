@@ -1,0 +1,89 @@
+/**
+ * Based on http://dbwebb.se/coachen/en-navbar-med-drop-down-meny-i-ren-html-och-css
+ * Changed to only style li-items instead of a.
+ */
+#navbar {
+  margin-bottom: 44px;
+}
+
+.navbar {
+  background: rgb(245,246,246);
+  background: -moz-linear-gradient(top,  rgba(245,246,246,1) 0%, rgba(219,220,226,1) 21%, rgba(184,186,198,1) 49%, rgba(221,223,227,1) 80%, rgba(245,246,246,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(245,246,246,1)), color-stop(21%,rgba(219,220,226,1)), color-stop(49%,rgba(184,186,198,1)), color-stop(80%,rgba(221,223,227,1)), color-stop(100%,rgba(245,246,246,1)));
+  background: -webkit-linear-gradient(top,  rgba(245,246,246,1) 0%,rgba(219,220,226,1) 21%,rgba(184,186,198,1) 49%,rgba(221,223,227,1) 80%,rgba(245,246,246,1) 100%);
+  background: -o-linear-gradient(top,  rgba(245,246,246,1) 0%,rgba(219,220,226,1) 21%,rgba(184,186,198,1) 49%,rgba(221,223,227,1) 80%,rgba(245,246,246,1) 100%);
+  background: -ms-linear-gradient(top,  rgba(245,246,246,1) 0%,rgba(219,220,226,1) 21%,rgba(184,186,198,1) 49%,rgba(221,223,227,1) 80%,rgba(245,246,246,1) 100%);
+  background: linear-gradient(to bottom,  rgba(245,246,246,1) 0%,rgba(219,220,226,1) 21%,rgba(184,186,198,1) 49%,rgba(221,223,227,1) 80%,rgba(245,246,246,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f6f6', endColorstr='#f5f6f6',GradientType=0 );
+  border-radius: 4px;
+}
+ 
+.navbar ul {
+  list-style: none; 
+  margin: 0; 
+  padding: 0;
+}
+ 
+.navbar li {
+  display: inline-block;
+  border-top: 4px solid transparent; 
+  color: #333; 
+  position: relative; 
+}
+ 
+.navbar a {
+  display: block;
+  padding: 1em;
+  text-decoration: none;
+  color: inherit;
+  white-space: nowrap; 
+
+}
+
+.navbar li:hover {
+  color: #eee; 
+  border-color: #666;
+  background: rgb(148,158,158);
+  background: -moz-linear-gradient(top,  rgba(148,158,158,1) 0%, rgba(126,129,150,1) 21%, rgba(105,109,131,1) 49%, rgba(128,135,150,1) 80%, rgba(148,158,158,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(148,158,158,1)), color-stop(21%,rgba(126,129,150,1)), color-stop(49%,rgba(105,109,131,1)), color-stop(80%,rgba(128,135,150,1)), color-stop(100%,rgba(148,158,158,1)));
+  background: -webkit-linear-gradient(top,  rgba(148,158,158,1) 0%,rgba(126,129,150,1) 21%,rgba(105,109,131,1) 49%,rgba(128,135,150,1) 80%,rgba(148,158,158,1) 100%);
+  background: -o-linear-gradient(top,  rgba(148,158,158,1) 0%,rgba(126,129,150,1) 21%,rgba(105,109,131,1) 49%,rgba(128,135,150,1) 80%,rgba(148,158,158,1) 100%);
+  background: -ms-linear-gradient(top,  rgba(148,158,158,1) 0%,rgba(126,129,150,1) 21%,rgba(105,109,131,1) 49%,rgba(128,135,150,1) 80%,rgba(148,158,158,1) 100%);
+  background: linear-gradient(to bottom,  rgba(148,158,158,1) 0%,rgba(126,129,150,1) 21%,rgba(105,109,131,1) 49%,rgba(128,135,150,1) 80%,rgba(148,158,158,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#949e9e', endColorstr='#949e9e',GradientType=0 );
+} 
+ 
+.navbar li.selected-parent, 
+.navbar li.selected {
+  color: #222; 
+  border-color: #05455E;
+}
+
+.navbar ul ul {
+  background-color: #fff; 
+  padding: 2px 6px 2px 0; 
+  position: absolute; 
+  left: -9999px; 
+  z-index: 2;
+  background-color: #eee;
+}
+ 
+.navbar li li {
+  width: 100%;
+  border-top: none;  
+  border-left: 4px solid transparent;  
+}
+
+.navbar li:hover ul {
+  left: 0;
+}
+ 
+.navbar li li:hover {
+  color: #666; 
+  border-color: #666;
+}
+
+.navbar li li.selected {
+  color: #222; 
+  border-color: #222;
+}

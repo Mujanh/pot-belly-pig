@@ -30,4 +30,34 @@ class FormSmallController
             'content' => $form->getHTML()
         ]);
     }
+
+    public function signupAction()
+    {
+        $this->di->session();
+
+        $form = new \Anax\HTMLForm\CFormSignup();
+        $form->setDI($this->di);
+        $form->check();
+
+        $this->di->theme->setTitle("Skapa ny användare");
+        $this->di->views->add('default/page', [
+            'title' => "Lägg till användare",
+            'content' => $form->getHTML()
+        ]);
+    }
+
+    public function formUpdateAction($acronym = , $name, $email, $id)
+    {
+        $this->di->session();
+
+        $form = new \Anax\HTMLForm\CFormUpdate($acronym, $name, $email, $id);
+        $form->setDI($this->di);
+        $form->check();
+
+        $this->di->theme->setTitle("Redigera användare");
+        $this->di->views->add('default/page', [
+            'title' => "Redigera",
+            'content' => $form->getHTML()
+        ]);
+    }
 }

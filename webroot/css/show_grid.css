@@ -1,0 +1,7 @@
+/*
+* Show grid as background
+*/
+
+#wrapper {
+  background: url(grid_12_60_20.png) center 1px repeat-y #fff;
+}
